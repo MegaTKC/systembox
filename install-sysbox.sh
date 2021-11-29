@@ -17,5 +17,14 @@ cp /usr/bin/qemu-i386-static /srv/chroot/debian-x86/usr/bin
 chroot "/srv/chroot/debian-x86" /debootstrap/debootstrap --second-stage
 echo "Creating the config file..."
 sleep 2.5
-sudo cp installfiles/debianx86.conf /etc/schroot/chroot.d/debianx86.conf
+sudo echo '[debian-x86]
+description=Debian Stretch x86 chroot
+aliases=debian-x86
+type=directory
+directory=/srv/chroot/debian-x86
+profile=desktop
+personality=linux
+preserve-environment=true' > /etc/schroot/chroot.d/debianx86.conf
+sudo chmod 470 -R /etc/schroot/chroot.d/debianx86.conf
+sleep 1
 echo "Setup finished! Run sudo schroot -c debian-x86"
